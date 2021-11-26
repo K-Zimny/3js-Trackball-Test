@@ -20,7 +20,7 @@ animate();
 function init() {
   const aspect = window.innerWidth / window.innerHeight;
 
-  perspectiveCamera = new THREE.PerspectiveCamera(90, aspect, 1, 1000);
+  perspectiveCamera = new THREE.PerspectiveCamera(30, aspect, 1, 1000);
   perspectiveCamera.position.z = 500;
 
   orthographicCamera = new THREE.OrthographicCamera(
@@ -157,6 +157,7 @@ function init() {
 
 function createControls(camera) {
   controls = new TrackballControls(camera, renderer.domElement);
+  controls.autoRotate = true;
 
   controls.rotateSpeed = 1.0;
   controls.zoomSpeed = 1.2;
@@ -196,6 +197,13 @@ function render() {
   const camera = params.orthographicCamera
     ? orthographicCamera
     : perspectiveCamera;
+  // Animate
+
+  const clock = new THREE.Clock();
+
+  const elapsedTime = clock.getElapsedTime();
+  camera.position.x += Math.sin(elapsedTime * Math.PI * 2) / 4;
+  camera.position.z += Math.cos(elapsedTime * Math.PI * 2) / 4;
 
   renderer.render(scene, camera);
 }
