@@ -6,6 +6,8 @@ import * as THREE from "three";
 
 import { TrackballControls } from "three/examples/jsm/controls/TrackballControls.js";
 
+import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
+
 let perspectiveCamera, orthographicCamera, controls, scene, renderer, stats;
 
 const params = {
@@ -112,6 +114,21 @@ function init() {
   //     meshTorus.matrixAutoUpdate = false;
   //     scene.add(meshTorus);
   //   }
+
+  // FBX Loader
+
+  const loader = new FBXLoader();
+
+  loader.load(
+    "../models/cryptobuilding.fbx",
+    function (fbx) {
+      scene.add(fbx.scene);
+    },
+    undefined,
+    function (error) {
+      console.error(error);
+    }
+  );
 
   // lights
 
