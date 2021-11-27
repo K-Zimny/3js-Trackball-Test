@@ -1,14 +1,83 @@
+/* canvas */
+
 canvas {
+  /* display: none !important; */
   position: fixed;
   inset: 0;
   z-index: -1;
 }
 
-h1 {
+/* var */
+:root {
+  --dark: #121212;
+  --text-primary: #000;
+}
+
+/* general */
+
+body {
+  font-family: sans-serif;
+  background: var(--dark);
+  animation: fade-in 10s;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: var(--text-primary);
+}
+
+hr {
+  background: var(--text-primary);
+  border-color: transparent;
+}
+
+/* header */
+
+header {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
+  background: rgb(0 0 0 / 7%);
+  padding: 20px;
+  text-align: center;
+}
+
+@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+  header {
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+  }
+}
+
+h1 {
+  font-size: 24px;
+  letter-spacing: 10px;
+}
+
+header p {
   font-family: sans-serif;
-  letter-spacing: 40px;
+  font-size: 16px;
+  letter-spacing: 2px;
+}
+
+nav ul,
+nav li {
+  display: inline-block;
+}
+
+nav ul {
+  padding: 0;
+}
+nav li {
+  padding: 10px 50px;
 }

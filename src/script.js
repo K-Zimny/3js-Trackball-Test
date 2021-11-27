@@ -20,8 +20,8 @@ animate();
 function init() {
   const aspect = window.innerWidth / window.innerHeight;
 
-  perspectiveCamera = new THREE.PerspectiveCamera(30, aspect, 1, 1000);
-  perspectiveCamera.position.z = 500;
+  perspectiveCamera = new THREE.PerspectiveCamera(35, aspect, 1, 1000);
+  perspectiveCamera.position.z = -1500;
 
   orthographicCamera = new THREE.OrthographicCamera(
     (frustumSize * aspect) / -2,
@@ -46,7 +46,7 @@ function init() {
     flatShading: true,
   });
 
-  for (let i = 0; i < 250; i++) {
+  for (let i = 0; i < 350; i++) {
     const mesh = new THREE.Mesh(geometry, material);
     mesh.position.x = (Math.random() - 0.5) * 1000;
     mesh.position.y = (Math.random() - 0.5) * 1000;
@@ -66,7 +66,7 @@ function init() {
     flatShading: true,
   });
 
-  for (let i = 0; i < 250; i++) {
+  for (let i = 0; i < 350; i++) {
     const meshSphere = new THREE.Mesh(geometrySphere, materialSphere);
     meshSphere.position.x = (Math.random() - 0.5) * 1000;
     meshSphere.position.y = (Math.random() - 0.5) * 1000;
@@ -83,7 +83,7 @@ function init() {
     flatShading: true,
   });
 
-  for (let i = 0; i < 250; i++) {
+  for (let i = 0; i < 350; i++) {
     const meshBox = new THREE.Mesh(geometryBox, materialBox);
     meshBox.position.x = (Math.random() - 0.5) * 1000;
     meshBox.position.y = (Math.random() - 0.5) * 1000;
@@ -131,6 +131,7 @@ function init() {
   renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.domElement.id = "c";
   document.body.appendChild(renderer.domElement);
 
   //   stats = new Stats();
@@ -157,11 +158,11 @@ function init() {
 
 function createControls(camera) {
   controls = new TrackballControls(camera, renderer.domElement);
-  controls.autoRotate = true;
 
   controls.rotateSpeed = 1.0;
   controls.zoomSpeed = 1.2;
   controls.panSpeed = 0.8;
+  controls.maxDistance = 1500;
 
   controls.keys = ["KeyA", "KeyS", "KeyD"];
 }
@@ -202,8 +203,41 @@ function render() {
   const clock = new THREE.Clock();
 
   const elapsedTime = clock.getElapsedTime();
-  camera.position.x += Math.sin(elapsedTime * Math.PI * 2) / 4;
-  camera.position.z += Math.cos(elapsedTime * Math.PI * 2) / 4;
 
+  // camera.position.x += Math.cos(elapsedTime * Math.PI * 2);
+  // camera.position.y += Math.cos(elapsedTime * Math.PI * 2);
+  // camera.position.z += Math.cos(elapsedTime * Math.PI * 2);
+
+  if (camera.position.z < 0) {
+    camera.position.x += Math.cos(elapsedTime * Math.PI * 2) / 16;
+    camera.position.y += Math.cos(elapsedTime * Math.PI * 2) / 8;
+    camera.position.z += Math.cos(elapsedTime * Math.PI * 2);
+  } else {
+    camera.position.x += Math.cos(elapsedTime * Math.PI * 2) / 16;
+    camera.position.y += Math.cos(elapsedTime * Math.PI * 2) / 16;
+    camera.position.z += Math.cos(elapsedTime * Math.PI * 2) / 16;
+  }
+
+  camera.lookAt(new THREE.Vector3(0, 0, 0));
   renderer.render(scene, camera);
 }
+
+// ---------------------------------------
+
+// js event listener
+
+c.addEventListener("mousedown", function () {
+  document.getElementById("header").style.display = "none";
+});
+
+c.addEventListener("mouseup", function () {
+  document.getElementById("header").style.display = "block";
+});
+
+c.addEventListener("touchstart", function () {
+  document.getElementById("header").style.display = "none";
+});
+
+c.addEventListener("touchend", function () {
+  document.getElementById("header").style.display = "block";
+});
