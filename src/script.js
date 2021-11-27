@@ -1,10 +1,14 @@
 import "./style.css";
 import * as THREE from "three";
 
-// import Stats from "three/examples/jsm/libs/stats.module.js";
-// import { GUI } from "three/examples/jsm/libs/dat.gui.module.js";
+import Stats from "three/examples/jsm/libs/stats.module.js";
+import { GUI } from "three/examples/jsm/libs/dat.gui.module.js";
 
 import { TrackballControls } from "three/examples/jsm/controls/TrackballControls.js";
+
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+
+const clock = new THREE.Clock();
 
 let perspectiveCamera, orthographicCamera, controls, scene, renderer, stats;
 
@@ -20,7 +24,7 @@ animate();
 function init() {
   const aspect = window.innerWidth / window.innerHeight;
 
-  perspectiveCamera = new THREE.PerspectiveCamera(35, aspect, 1, 1000);
+  perspectiveCamera = new THREE.PerspectiveCamera(35, aspect, 1, 1500);
   perspectiveCamera.position.z = -1500;
 
   orthographicCamera = new THREE.OrthographicCamera(
@@ -96,22 +100,29 @@ function init() {
     scene.add(meshBox);
   }
 
-  //   Torus Mesh
-  //   const geometryTorus = new THREE.TorusGeometry(10, 3, 16, 100);
-  //   const materialTorus = new THREE.MeshPhongMaterial({
-  //     color: 0xffffff,
-  //     flatShading: true,
-  //   });
+  // loader
 
-  //   for (let i = 0; i < 150; i++) {
-  //     const meshTorus = new THREE.Mesh(geometryTorus, materialTorus);
-  //     meshTorus.position.x = (Math.random() - 0.5) * 1000;
-  //     meshTorus.position.y = (Math.random() - 0.5) * 1000;
-  //     meshTorus.position.z = (Math.random() - 0.5) * 1000;
-  //     meshTorus.updateMatrix();
-  //     meshTorus.matrixAutoUpdate = false;
-  //     scene.add(meshTorus);
-  //   }
+  const loader = new GLTFLoader();
+
+  // Load a glTF resource
+  loader.load(
+    // resource URL
+    "crypto-logo2.glb",
+    // called when the resource is loaded
+    function (gltf) {
+      gltf.scene.rotation.z = Math.PI * 1.75;
+      gltf.scene.scale.set(3, 3, 3);
+      scene.add(gltf.scene);
+    },
+    // called while loading is progressing
+    function (xhr) {
+      console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+    },
+    // called when loading has errors
+    function (error) {
+      console.log("An error happened");
+    }
+  );
 
   // lights
 
@@ -134,20 +145,20 @@ function init() {
   renderer.domElement.id = "c";
   document.body.appendChild(renderer.domElement);
 
-  //   stats = new Stats();
-  //   document.body.appendChild(stats.dom);
+  stats = new Stats();
+  document.body.appendChild(stats.dom);
 
   //
 
-  //   const gui = new GUI();
-  //   gui
-  //     .add(params, "orthographicCamera")
-  //     .name("use orthographic")
-  //     .onChange(function (value) {
-  //       controls.dispose();
+  // const gui = new GUI();
+  // gui
+  //   .add(params, "orthographicCamera")
+  //   .name("use orthographic")
+  //   .onChange(function (value) {
+  //     controls.dispose();
 
-  //       createControls(value ? orthographicCamera : perspectiveCamera);
-  //     });
+  //     createControls(value ? orthographicCamera : perspectiveCamera);
+  //   });
 
   //
 
@@ -185,11 +196,30 @@ function onWindowResize() {
 }
 
 function animate() {
+  // Animate
+  const elapsedTime = clock.getElapsedTime();
+
+  // perspectiveCamera.position.x += Math.cos(elapsedTime * Math.PI * 2);
+  // perspectiveCamera.position.y += Math.cos(elapsedTime * Math.PI * 2);
+  // perspectiveCamera.position.z += Math.cos(elapsedTime * Math.PI * 2);
+
+  if (perspectiveCamera.position.z < 0) {
+    perspectiveCamera.position.x -= Math.cos(elapsedTime * Math.PI * 2) / 16;
+    perspectiveCamera.position.y += Math.cos(elapsedTime * Math.PI * 2) / 16;
+    perspectiveCamera.position.z += Math.cos(elapsedTime * Math.PI * 2);
+  } else {
+    perspectiveCamera.position.x += Math.cos(elapsedTime * Math.PI * 2) / 16;
+    perspectiveCamera.position.y += Math.cos(elapsedTime * Math.PI * 2) / 16;
+    perspectiveCamera.position.z += Math.cos(elapsedTime * Math.PI * 2) / 16;
+  }
+
+  perspectiveCamera.lookAt(new THREE.Vector3(0, 0, 0));
+
   requestAnimationFrame(animate);
 
   controls.update();
 
-  //   stats.update();
+  stats.update();
 
   render();
 }
@@ -198,27 +228,7 @@ function render() {
   const camera = params.orthographicCamera
     ? orthographicCamera
     : perspectiveCamera;
-  // Animate
 
-  const clock = new THREE.Clock();
-
-  const elapsedTime = clock.getElapsedTime();
-
-  // camera.position.x += Math.cos(elapsedTime * Math.PI * 2);
-  // camera.position.y += Math.cos(elapsedTime * Math.PI * 2);
-  // camera.position.z += Math.cos(elapsedTime * Math.PI * 2);
-
-  if (camera.position.z < 0) {
-    camera.position.x += Math.cos(elapsedTime * Math.PI * 2) / 16;
-    camera.position.y += Math.cos(elapsedTime * Math.PI * 2) / 8;
-    camera.position.z += Math.cos(elapsedTime * Math.PI * 2);
-  } else {
-    camera.position.x += Math.cos(elapsedTime * Math.PI * 2) / 16;
-    camera.position.y += Math.cos(elapsedTime * Math.PI * 2) / 16;
-    camera.position.z += Math.cos(elapsedTime * Math.PI * 2) / 16;
-  }
-
-  camera.lookAt(new THREE.Vector3(0, 0, 0));
   renderer.render(scene, camera);
 }
 
