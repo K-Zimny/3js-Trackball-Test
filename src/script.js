@@ -204,13 +204,13 @@ function animate() {
   // perspectiveCamera.position.z += Math.cos(elapsedTime * Math.PI * 2);
 
   if (perspectiveCamera.position.z < 0) {
-    perspectiveCamera.position.x -= Math.cos(elapsedTime * Math.PI * 2) / 16;
-    perspectiveCamera.position.y += Math.cos(elapsedTime * Math.PI * 2) / 16;
-    perspectiveCamera.position.z += Math.cos(elapsedTime * Math.PI * 2);
+    perspectiveCamera.position.x -= Math.cos(1 * Math.PI * 2) / 16;
+    perspectiveCamera.position.y += Math.cos(1 * Math.PI * 2) / 16;
+    perspectiveCamera.position.z += Math.cos(1 * Math.PI * 2);
   } else {
-    perspectiveCamera.position.x += Math.cos(elapsedTime * Math.PI * 2) / 16;
-    perspectiveCamera.position.y += Math.cos(elapsedTime * Math.PI * 2) / 16;
-    perspectiveCamera.position.z += Math.cos(elapsedTime * Math.PI * 2) / 16;
+    perspectiveCamera.position.x += Math.cos(1 * Math.PI * 2) / 64;
+    perspectiveCamera.position.y += Math.cos(1 * Math.PI * 2) / 64;
+    perspectiveCamera.position.z += Math.cos(1 * Math.PI * 2) / 124;
   }
 
   perspectiveCamera.lookAt(new THREE.Vector3(0, 0, 0));

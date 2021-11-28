@@ -18,7 +18,7 @@ canvas {
 body {
   font-family: sans-serif;
   background: var(--dark);
-  animation: fade-in 10s;
+  /* animation: fade-in 10s; */
 }
 
 @keyframes fade-in {
