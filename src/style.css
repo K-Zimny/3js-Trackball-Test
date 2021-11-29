@@ -18,7 +18,7 @@ canvas {
 body {
   font-family: sans-serif;
   background: var(--dark);
-  /* animation: fade-in 10s; */
+  animation: fade-in 10s;
 }
 
 @keyframes fade-in {
@@ -35,15 +35,34 @@ a {
   color: var(--text-primary);
 }
 
+button {
+  background-color: transparent;
+  border: none;
+  text-decoration: underline;
+}
+
 hr {
   background: var(--text-primary);
   border-color: transparent;
 }
 
+.hidden {
+  display: none !important;
+}
+
+.block {
+  display: block !important;
+}
+
 /* header */
 
 header {
+  visibility: hidden;
+  opacity: 0;
+  display: none;
   position: absolute;
+  width: 50%;
+  max-width: 900px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -81,4 +100,40 @@ nav ul {
 }
 nav li {
   padding: 10px 50px;
+}
+
+/* introText */
+
+#introText,
+#introTitle {
+  opacity: 0;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  text-align: center;
+}
+
+/* content "page" */
+
+.content-page {
+  display: none;
+  position: absolute;
+  width: 85%;
+  max-width: 900px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* background: rgb(0 0 0 / 7%); */
+  background: rgb(20 163 163 / 54%);
+  padding: 20px;
+  text-align: center;
+}
+
+@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+  .content-page {
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+  }
 }

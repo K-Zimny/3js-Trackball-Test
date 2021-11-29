@@ -1,4 +1,5 @@
 import "./style.css";
+import jQuery from "jquery";
 import * as THREE from "three";
 
 import Stats from "three/examples/jsm/libs/stats.module.js";
@@ -116,11 +117,11 @@ function init() {
     },
     // called while loading is progressing
     function (xhr) {
-      console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+      // console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
     },
     // called when loading has errors
     function (error) {
-      console.log("An error happened");
+      // console.log("An error happened");
     }
   );
 
@@ -234,20 +235,157 @@ function render() {
 
 // ---------------------------------------
 
-// js event listener
+jQuery(document).ready(function () {
+  console.log("jQuery Ready!");
+  // ---------------------------------------
+  // js event listener hide text on canvas scroll
+  // ---------------------------------------
 
-c.addEventListener("mousedown", function () {
-  document.getElementById("header").style.display = "none";
-});
+  // FIXME: Fix mouse clicks double clinking on phone
 
-c.addEventListener("mouseup", function () {
-  document.getElementById("header").style.display = "block";
-});
+  c.addEventListener("mousedown", function () {
+    jQuery("header").fadeTo(250, 0);
+  });
 
-c.addEventListener("touchstart", function () {
-  document.getElementById("header").style.display = "none";
-});
+  c.addEventListener("mouseup", function () {
+    jQuery("header").fadeTo(250, 1);
+  });
 
-c.addEventListener("touchend", function () {
-  document.getElementById("header").style.display = "block";
+  c.addEventListener("touchstart", function () {
+    jQuery("header").fadeTo(250, 0);
+  });
+
+  c.addEventListener("touchend", function () {
+    jQuery("header").fadeTo(250, 1);
+  });
+
+  // ---------------------------------------
+  // END js event listener hide text on canvas scroll
+  // ---------------------------------------
+
+  // ---------------------------------------
+
+  // ---------------------------------------
+  // introText Animation
+  // ---------------------------------------
+
+  jQuery("#introText")
+    .delay(6000)
+    .animate(
+      {
+        opacity: 1,
+        top: "+=10%",
+        // height: "toggle",
+      },
+      3000,
+      function () {
+        jQuery("#introText")
+          .delay(3000)
+          .animate({ opacity: 0, top: "+=10%" }, 3000, function () {
+            jQuery("#introTitle")
+              .delay(1000)
+              .animate(
+                {
+                  opacity: 1,
+                  top: "+=10%",
+                  // height: "toggle",
+                },
+                3000,
+                function () {
+                  jQuery("#introTitle")
+                    .delay(1000)
+                    .animate(
+                      {
+                        opacity: 0,
+                        top: "+=10%",
+                      },
+                      2000,
+                      function () {
+                        jQuery("#introText").addClass("hidden");
+                        jQuery("#introTitle").addClass("hidden");
+                        jQuery("header").removeClass("block");
+                        jQuery("header").css("opacity", "0");
+                        jQuery("header").css("visibility", "visible");
+                        jQuery("header").css("display", "none");
+                        jQuery("header").delay(500).animate(
+                          {
+                            opacity: 1,
+                            height: "toggle",
+                          },
+                          3000
+                        );
+                      }
+                    );
+                }
+              );
+          });
+      }
+    );
+
+  // ---------------------------------------
+  // ENDintroText Animation
+  // ---------------------------------------
+
+  // ---------------------------------------
+
+  // ---------------------------------------
+  // Hide/show "page" cards
+  // ---------------------------------------
+
+  // hide/show functions
+
+  function showPage(linkPage) {
+    jQuery("header")
+      .fadeTo(1000)
+      .delay(0)
+      .fadeTo(1000, 0, function () {
+        jQuery("header").addClass("hidden");
+        jQuery("header").removeClass("block");
+      });
+    jQuery(linkPage).addClass("block");
+    jQuery(linkPage).css("opacity", "0");
+    jQuery(linkPage).fadeTo(1000).delay(1000).fadeTo(1000, 1);
+  }
+
+  function hidePage(linkPage) {
+    jQuery(linkPage)
+      .fadeTo(1000)
+      .delay(0)
+      .fadeTo(1000, 0, function () {
+        jQuery(linkPage).addClass("hidden");
+        jQuery(linkPage).removeClass("block");
+      });
+    jQuery(header).addClass("block");
+    jQuery(header).css("opacity", "0");
+    jQuery(header).fadeTo(1000).delay(1000).fadeTo(1000, 1);
+  }
+
+  // Run hide/show Page on link clicks
+
+  jQuery("#aboutLink").on("click", function () {
+    showPage("#about");
+  });
+  jQuery("#aboutHomeBtn").on("click", function () {
+    hidePage("#about");
+  });
+
+  jQuery("#whyLink").on("click", function () {
+    showPage("#why");
+  });
+  jQuery("#whyHomeBtn").on("click", function () {
+    hidePage("#why");
+  });
+
+  jQuery("#howLink").on("click", function () {
+    showPage("#how");
+  });
+  jQuery("#howHomeBtn").on("click", function () {
+    hidePage("#how");
+  });
+
+  // ---------------------------------------
+  // END Hide/show "page" cards
+  // ---------------------------------------
+
+  // ---------------------------------------
 });
