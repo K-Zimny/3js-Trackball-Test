@@ -250,7 +250,11 @@ function render() {
     ? orthographicCamera
     : perspectiveCamera;
 
-  composer.render(scene, camera);
+  if (perspectiveCamera.position.z < 0) {
+    composer.render(scene, camera);
+  } else {
+    renderer.render(scene, camera);
+  }
 }
 
 // ---------------------------------------
