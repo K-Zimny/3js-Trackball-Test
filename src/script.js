@@ -9,9 +9,21 @@ import { TrackballControls } from "three/examples/jsm/controls/TrackballControls
 
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
+import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
+import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
+import { GlitchPass } from "./CustomGlitch";
+
 const clock = new THREE.Clock();
 
-let perspectiveCamera, orthographicCamera, controls, scene, renderer, stats;
+let perspectiveCamera,
+  orthographicCamera,
+  controls,
+  scene,
+  renderer,
+  stats,
+  composer;
+
+let glitchPass;
 
 const params = {
   orthographicCamera: false,
@@ -166,6 +178,14 @@ function init() {
   window.addEventListener("resize", onWindowResize);
 
   createControls(perspectiveCamera);
+
+  // postprocessing
+
+  composer = new EffectComposer(renderer);
+  composer.addPass(new RenderPass(scene, perspectiveCamera));
+
+  glitchPass = new GlitchPass();
+  composer.addPass(glitchPass);
 }
 
 function createControls(camera) {
@@ -230,7 +250,7 @@ function render() {
     ? orthographicCamera
     : perspectiveCamera;
 
-  renderer.render(scene, camera);
+  composer.render(scene, camera);
 }
 
 // ---------------------------------------
