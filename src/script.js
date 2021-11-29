@@ -314,22 +314,6 @@ jQuery(document).ready(function () {
                           },
                           3000
                         );
-                        jQuery("#canvasHelperDesktop")
-                          .delay(3000)
-                          .animate(
-                            {
-                              opacity: 1,
-                            },
-                            3000,
-                            function () {
-                              jQuery("#c").on("mousedown", function () {
-                                jQuery("#canvasHelperDesktop").css(
-                                  "opacity",
-                                  "0"
-                                );
-                              });
-                            }
-                          );
                       }
                     );
                 }
@@ -393,28 +377,50 @@ jQuery(document).ready(function () {
     jQuery("header").addClass("hidden");
     jQuery("header").removeClass("block");
     jQuery("#endExplore").addClass("block");
-    jQuery("#canvasHelperMobile").css("display", "block");
-    jQuery("#canvasHelperMobile").addClass("block");
-    jQuery("#canvasHelperMobile")
-      .delay(0)
-      .animate(
-        {
-          opacity: 1,
-        },
-        1000,
-        function () {
-          jQuery("#c").on("touchstart", function () {
-            jQuery("#canvasHelperMobile").css("opacity", "0");
-            jQuery("#canvasHelperMobile").removeClass("block");
-            jQuery("#canvasHelperMobile").addClass("hidden");
-          });
-          jQuery("#endExplore").on("touchstart", function () {
-            jQuery("#canvasHelperMobile").css("opacity", "0");
-            jQuery("#canvasHelperMobile").removeClass("block");
-            jQuery("#canvasHelperMobile").addClass("hidden");
-          });
-        }
-      );
+
+    if (jQuery(window).width() < 767) {
+      jQuery("#canvasHelperMobile").css("display", "block");
+      jQuery("#canvasHelperMobile").addClass("block");
+      jQuery("#canvasHelperMobile")
+        .delay(0)
+        .animate(
+          {
+            opacity: 1,
+          },
+          1000,
+          function () {
+            jQuery("#c").on("touchstart", function () {
+              jQuery("#canvasHelperMobile").css("opacity", "0");
+              jQuery("#canvasHelperMobile").removeClass("block");
+              jQuery("#canvasHelperMobile").addClass("hidden");
+            });
+            jQuery("#endExplore").on("touchstart", function () {
+              jQuery("#canvasHelperMobile").css("opacity", "0");
+              jQuery("#canvasHelperMobile").removeClass("block");
+              jQuery("#canvasHelperMobile").addClass("hidden");
+            });
+          }
+        );
+    } else {
+      jQuery("#canvasHelperDesktop")
+        .delay(0)
+        .animate(
+          {
+            opacity: 1,
+          },
+          1000,
+          function () {
+            jQuery("#c").on("mousedown", function () {
+              jQuery("#canvasHelperDesktop").css("opacity", "0");
+            });
+            jQuery("#endExplore").on("click", function () {
+              jQuery("#canvasHelperDesktop").css("opacity", "0");
+              jQuery("#canvasHelperDesktop").removeClass("block");
+              jQuery("#canvasHelperDesktop").addClass("hidden");
+            });
+          }
+        );
+    }
   }
 
   function endExplore() {
@@ -496,4 +502,8 @@ jQuery(document).ready(function () {
   jQuery("#endExplore").on("click", function () {
     endExplore();
   });
+
+  // Audio
+
+  document.getElementById("audio").play();
 });
