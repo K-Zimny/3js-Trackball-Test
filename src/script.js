@@ -251,13 +251,13 @@ jQuery(document).ready(function () {
     jQuery("header").fadeTo(250, 1);
   });
 
-  c.addEventListener("touchstart", function () {
-    jQuery("header").fadeTo(250, 0);
-  });
+  // c.addEventListener("touchstart", function () {
+  //   jQuery("header").fadeTo(250, 0);
+  // });
 
-  c.addEventListener("touchend", function () {
-    jQuery("header").fadeTo(250, 1);
-  });
+  // c.addEventListener("touchend", function () {
+  //   jQuery("header").fadeTo(250, 1);
+  // });
 
   // ---------------------------------------
   // END js event listener hide text on canvas scroll
@@ -314,6 +314,22 @@ jQuery(document).ready(function () {
                           },
                           3000
                         );
+                        jQuery("#canvasHelperDesktop")
+                          .delay(3000)
+                          .animate(
+                            {
+                              opacity: 1,
+                            },
+                            3000,
+                            function () {
+                              jQuery("#c").on("mousedown", function () {
+                                jQuery("#canvasHelperDesktop").css(
+                                  "opacity",
+                                  "0"
+                                );
+                              });
+                            }
+                          );
                       }
                     );
                 }
@@ -367,6 +383,55 @@ jQuery(document).ready(function () {
   // ---------------------------------------
 
   // ---------------------------------------
+  // Explore World
+  // ---------------------------------------
+
+  // Explore World
+
+  function startExplore() {
+    jQuery("header").fadeTo(1000, 0);
+    jQuery("header").addClass("hidden");
+    jQuery("header").removeClass("block");
+    jQuery("#endExplore").addClass("block");
+    jQuery("#canvasHelperMobile").css("display", "block");
+    jQuery("#canvasHelperMobile").addClass("block");
+    jQuery("#canvasHelperMobile")
+      .delay(0)
+      .animate(
+        {
+          opacity: 1,
+        },
+        1000,
+        function () {
+          jQuery("#c").on("touchstart", function () {
+            jQuery("#canvasHelperMobile").css("opacity", "0");
+            jQuery("#canvasHelperMobile").removeClass("block");
+            jQuery("#canvasHelperMobile").addClass("hidden");
+          });
+          jQuery("#endExplore").on("touchstart", function () {
+            jQuery("#canvasHelperMobile").css("opacity", "0");
+            jQuery("#canvasHelperMobile").removeClass("block");
+            jQuery("#canvasHelperMobile").addClass("hidden");
+          });
+        }
+      );
+  }
+
+  function endExplore() {
+    jQuery("header").fadeTo(1000, 1);
+    jQuery("header").removeClass("hidden");
+    jQuery("header").addClass("block");
+    jQuery("#endExplore").addClass("hidden");
+    jQuery("#endExplore").removeClass("block");
+  }
+
+  // ---------------------------------------
+  // END Explore World
+  // ---------------------------------------
+
+  // ---------------------------------------
+
+  // ---------------------------------------
   // Page cards scene animation
   // ---------------------------------------
 
@@ -398,6 +463,7 @@ jQuery(document).ready(function () {
     showPage("#about");
     lookAtPage(500, -2);
   });
+
   jQuery("#aboutHomeBtn").on("click", function () {
     hidePage("#about");
     lookAtHome(500, 100, 100, 200);
@@ -407,6 +473,7 @@ jQuery(document).ready(function () {
     showPage("#why");
     lookAtPage(500, -3);
   });
+
   jQuery("#whyHomeBtn").on("click", function () {
     hidePage("#why");
     lookAtHome(500, -300, -600, 250);
@@ -416,8 +483,17 @@ jQuery(document).ready(function () {
     showPage("#how");
     lookAtPage(500, -4);
   });
+
   jQuery("#howHomeBtn").on("click", function () {
     hidePage("#how");
     lookAtHome(500, 500, -500, 300);
+  });
+
+  jQuery("#explore").on("click", function () {
+    startExplore();
+  });
+
+  jQuery("#endExplore").on("click", function () {
+    endExplore();
   });
 });

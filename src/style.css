@@ -183,6 +183,33 @@ audio {
   left: 0;
 }
 
+/* Canvas nav helper */
+
+#exploreli {
+  display: none !important;
+}
+
+#endExplore {
+  display: none;
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#canvasHelperDesktop {
+  opacity: 0;
+  display: block !important;
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#canvasHelperMobile {
+  display: none;
+}
+
 /* --------------------------- */
 /* Media query */
 /* --------------------------- */
@@ -198,11 +225,36 @@ audio {
     top: 50%;
   }
 
+  nav li {
+    padding: 10px 0;
+    width: 100%;
+  }
+
   /* content "page" */
 
   .content-page {
     position: static;
     transform: none;
     margin: auto;
+  }
+
+  /* Canvas nav helper */
+
+  #exploreli {
+    display: block !important;
+  }
+
+  #canvasHelperDesktop {
+    display: none !important;
+  }
+
+  #canvasHelperMobile {
+    opacity: 0;
+    display: none;
+    position: absolute;
+    bottom: 150px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
   }
 }
