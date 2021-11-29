@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
 /* canvas */
 
 canvas {
@@ -10,15 +12,24 @@ canvas {
 /* var */
 :root {
   --dark: #121212;
-  --text-primary: #000;
+  --text-primary: #fff;
 }
 
 /* general */
 
+html {
+  font-size: 14px;
+}
+
 body {
-  font-family: sans-serif;
+  /* font-family: sans-serif; */
   background: var(--dark);
+  color: var(--text-primary);
   animation: fade-in 10s;
+  font-family: "Press Start 2P", cursive;
+  letter-spacing: 5px;
+  word-spacing: 3px;
+  line-height: 30px;
 }
 
 @keyframes fade-in {
@@ -36,14 +47,19 @@ a {
 }
 
 button {
-  background-color: transparent;
-  border: none;
-  text-decoration: underline;
+  background-color: #009999;
+  font-family: "Press Start 2P", cursive;
+  letter-spacing: 5px;
+  word-spacing: 3px;
+  line-height: 30px;
+  color: var(--text-primary);
+  border-top-color: #c6c6c678;
+  border-left-color: #c6c6c678;
 }
 
 hr {
-  background: var(--text-primary);
-  border-color: transparent;
+  /* background: var(--text-primary); */
+  /* border-color: transparent; */
 }
 
 .hidden {
@@ -52,6 +68,15 @@ hr {
 
 .block {
   display: block !important;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+.hide-scrollbar ::-webkit-scrollbar {
+  width: 0;
 }
 
 /* header */
@@ -70,23 +95,27 @@ header {
   background: rgb(20 163 163 / 54%);
   padding: 20px;
   text-align: center;
+  border-width: 3px;
+  border-style: solid;
+  border-color: rgba(198, 198, 198, 0.47) rgba(0, 0, 0, 0.62)
+    rgba(0, 0, 0, 0.62) rgba(198, 198, 198, 0.47);
 }
 
 @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
   header {
-    -webkit-backdrop-filter: blur(2px);
-    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px);
   }
 }
 
 h1 {
-  font-size: 24px;
+  font-size: 1.5rem;
   letter-spacing: 10px;
 }
 
 header p {
-  font-family: sans-serif;
-  font-size: 16px;
+  /* font-family: sans-serif; */
+  font-size: 1rem;
   letter-spacing: 2px;
 }
 
@@ -113,6 +142,7 @@ nav li {
   transform: translate(-50%, -50%);
   padding: 20px;
   text-align: center;
+  font-size: 1.5rem;
 }
 
 /* content "page" */
@@ -129,11 +159,32 @@ nav li {
   background: rgb(20 163 163 / 54%);
   padding: 20px;
   text-align: center;
+  border-width: 3px;
+  border-style: solid;
+  border-color: rgba(198, 198, 198, 0.47) rgba(0, 0, 0, 0.62)
+    rgba(0, 0, 0, 0.62) rgba(198, 198, 198, 0.47);
 }
 
 @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
   .content-page {
-    -webkit-backdrop-filter: blur(2px);
-    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+  }
+}
+/* --------------------------- */
+/* Media query */
+/* --------------------------- */
+
+@media only screen and (max-width: 767px) {
+  html {
+    font-size: 12px;
+  }
+
+  /* content "page" */
+
+  .content-page {
+    position: static;
+    transform: none;
+    margin: auto;
   }
 }
