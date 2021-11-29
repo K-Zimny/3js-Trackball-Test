@@ -25,7 +25,7 @@ animate();
 function init() {
   const aspect = window.innerWidth / window.innerHeight;
 
-  perspectiveCamera = new THREE.PerspectiveCamera(35, aspect, 1, 2000);
+  perspectiveCamera = new THREE.PerspectiveCamera(40, aspect, 1, 2000);
   perspectiveCamera.position.z = -1500;
 
   orthographicCamera = new THREE.OrthographicCamera(
@@ -171,9 +171,9 @@ function init() {
 function createControls(camera) {
   controls = new TrackballControls(camera, renderer.domElement);
 
-  controls.rotateSpeed = 1.0;
-  controls.zoomSpeed = 1.2;
-  controls.panSpeed = 0.8;
+  controls.rotateSpeed = 0;
+  controls.zoomSpeed = 0;
+  controls.panSpeed = 0;
   controls.maxDistance = 1500;
 
   controls.keys = ["KeyA", "KeyS", "KeyD"];
@@ -200,10 +200,6 @@ function animate() {
   // Animate
   const elapsedTime = clock.getElapsedTime();
 
-  // perspectiveCamera.position.x += Math.cos(elapsedTime * Math.PI * 2);
-  // perspectiveCamera.position.y += Math.cos(elapsedTime * Math.PI * 2);
-  // perspectiveCamera.position.z += Math.cos(elapsedTime * Math.PI * 2);
-
   if (perspectiveCamera.position.z < 0) {
     perspectiveCamera.position.x -= Math.cos(1 * Math.PI * 2) / 16;
     perspectiveCamera.position.y += Math.cos(1 * Math.PI * 2) / 16;
@@ -212,6 +208,10 @@ function animate() {
     perspectiveCamera.position.x += Math.cos(1 * Math.PI * 2) / 64;
     perspectiveCamera.position.y += Math.cos(1 * Math.PI * 2) / 64;
     perspectiveCamera.position.z += Math.cos(1 * Math.PI * 2) / 124;
+    controls.maxDistance = 500;
+    controls.rotateSpeed = 1.0;
+    controls.zoomSpeed = 1.2;
+    controls.panSpeed = 0.8;
   }
 
   perspectiveCamera.lookAt(new THREE.Vector3(0, 0, 0));
@@ -369,20 +369,25 @@ jQuery(document).ready(function () {
   // ---------------------------------------
   // Page cards scene animation
   // ---------------------------------------
-  jQuery("#aboutLink").on("click", function () {
-    for (let i = 0; i < 50; i++) {
-      perspectiveCamera.position.x = Math.cos(Math.random() * Math.PI * 2) / 16;
-      perspectiveCamera.position.y = Math.cos(Math.random() * Math.PI * 2) / 16;
-      perspectiveCamera.position.z = Math.cos(Math.random() * Math.PI * 2);
+
+  function lookAtPage(iteration, divFactor) {
+    for (let i = 0; i < iteration; i++) {
+      perspectiveCamera.position.x =
+        Math.cos(Math.random() * Math.PI * 2) / divFactor;
+      perspectiveCamera.position.y =
+        Math.cos(Math.random() * Math.PI * 2) / divFactor;
+      perspectiveCamera.position.z =
+        Math.cos(Math.random() * Math.PI * 2) / divFactor;
     }
-  });
-  jQuery("#aboutHomeBtn").on("click", function () {
-    for (let i = 0; i < 50; i++) {
-      perspectiveCamera.position.x = 100 * Math.random();
-      perspectiveCamera.position.y = 100 * Math.random();
-      perspectiveCamera.position.z = 200;
+  }
+  function lookAtHome(iteration, xPos, yPos, zPos) {
+    for (let i = 0; i < iteration; i++) {
+      perspectiveCamera.position.x = xPos * Math.random();
+      perspectiveCamera.position.y = yPos * Math.random();
+      perspectiveCamera.position.z = zPos;
     }
-  });
+  }
+
   // ---------------------------------------
   // END Page cards scene animation
   // ---------------------------------------
@@ -391,22 +396,28 @@ jQuery(document).ready(function () {
 
   jQuery("#aboutLink").on("click", function () {
     showPage("#about");
+    lookAtPage(500, -2);
   });
   jQuery("#aboutHomeBtn").on("click", function () {
     hidePage("#about");
+    lookAtHome(500, 100, 100, 200);
   });
 
   jQuery("#whyLink").on("click", function () {
     showPage("#why");
+    lookAtPage(500, -3);
   });
   jQuery("#whyHomeBtn").on("click", function () {
     hidePage("#why");
+    lookAtHome(500, -300, -600, 250);
   });
 
   jQuery("#howLink").on("click", function () {
     showPage("#how");
+    lookAtPage(500, -4);
   });
   jQuery("#howHomeBtn").on("click", function () {
     hidePage("#how");
+    lookAtHome(500, 500, -500, 300);
   });
 });
