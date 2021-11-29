@@ -63,7 +63,7 @@ class GlitchPass extends Pass {
       this.curF += 1.75;
     } else if (this.goWild == false) {
       this.uniforms["byp"].value = 1;
-      this.curF += 0.15 * Math.random();
+      this.curF += 2 * Math.random();
     }
 
     // this.curF++;
