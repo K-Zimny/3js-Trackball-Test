@@ -25,7 +25,7 @@ animate();
 function init() {
   const aspect = window.innerWidth / window.innerHeight;
 
-  perspectiveCamera = new THREE.PerspectiveCamera(35, aspect, 1, 1500);
+  perspectiveCamera = new THREE.PerspectiveCamera(35, aspect, 1, 2000);
   perspectiveCamera.position.z = -1500;
 
   orthographicCamera = new THREE.OrthographicCamera(
@@ -360,7 +360,34 @@ jQuery(document).ready(function () {
     jQuery(header).fadeTo(1000).delay(1000).fadeTo(1000, 1);
   }
 
-  // Run hide/show Page on link clicks
+  // ---------------------------------------
+  // END Hide/show "page" cards
+  // ---------------------------------------
+
+  // ---------------------------------------
+
+  // ---------------------------------------
+  // Page cards scene animation
+  // ---------------------------------------
+  jQuery("#aboutLink").on("click", function () {
+    for (let i = 0; i < 50; i++) {
+      perspectiveCamera.position.x = Math.cos(Math.random() * Math.PI * 2) / 16;
+      perspectiveCamera.position.y = Math.cos(Math.random() * Math.PI * 2) / 16;
+      perspectiveCamera.position.z = Math.cos(Math.random() * Math.PI * 2);
+    }
+  });
+  jQuery("#aboutHomeBtn").on("click", function () {
+    for (let i = 0; i < 50; i++) {
+      perspectiveCamera.position.x = 100 * Math.random();
+      perspectiveCamera.position.y = 100 * Math.random();
+      perspectiveCamera.position.z = 200;
+    }
+  });
+  // ---------------------------------------
+  // END Page cards scene animation
+  // ---------------------------------------
+
+  // ---------------------------------------
 
   jQuery("#aboutLink").on("click", function () {
     showPage("#about");
@@ -382,20 +409,4 @@ jQuery(document).ready(function () {
   jQuery("#howHomeBtn").on("click", function () {
     hidePage("#how");
   });
-
-  // ---------------------------------------
-  // END Hide/show "page" cards
-  // ---------------------------------------
-
-  // ---------------------------------------
-
-  // ---------------------------------------
-  // Page cards scene animation
-  // ---------------------------------------
-
-  // ---------------------------------------
-  // END Page cards scene animation
-  // ---------------------------------------
-
-  // ---------------------------------------
 });
