@@ -2,7 +2,7 @@ import "./style.css";
 import jQuery from "jquery";
 import * as THREE from "three";
 
-// import Stats from "three/examples/jsm/libs/stats.module.js";
+import Stats from "three/examples/jsm/libs/stats.module.js";
 import { GUI } from "three/examples/jsm/libs/dat.gui.module.js";
 
 import { TrackballControls } from "three/examples/jsm/controls/TrackballControls.js";
@@ -120,11 +120,17 @@ function init() {
   // Load a glTF resource
   loader.load(
     // resource URL
-    "crypto-logo2.glb",
+    "s2-2.glb",
     // called when the resource is loaded
     function (gltf) {
-      gltf.scene.rotation.z = Math.PI * 1.75;
-      gltf.scene.scale.set(3, 3, 3);
+      // gltf.scene.rotation.z = Math.PI * 1.75;
+      // gltf.scene.rotation.y = Math.PI * 1;
+      // gltf.scene.rotation.x = Math.PI * 0.5;
+      gltf.scene.rotation.z = Math.PI * 0.25;
+      gltf.scene.rotation.y = Math.PI * 1;
+      // gltf.scene.position.x = -50;
+      // gltf.scene.position.y = 50;
+      gltf.scene.scale.set(8, 8, 8);
       scene.add(gltf.scene);
     },
     // called while loading is progressing
@@ -158,8 +164,8 @@ function init() {
   renderer.domElement.id = "c";
   document.body.appendChild(renderer.domElement);
 
-  // stats = new Stats();
-  // document.body.appendChild(stats.dom);
+  stats = new Stats();
+  document.body.appendChild(stats.dom);
 
   //
 
@@ -240,7 +246,7 @@ function animate() {
 
   controls.update();
 
-  // stats.update();
+  stats.update();
 
   render();
 }
