@@ -186,6 +186,13 @@ audio {
   left: 0;
 }
 
+#audioBtn {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 /* Canvas nav helper */
 
 #exploreli {
@@ -259,5 +266,13 @@ audio {
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
+  }
+
+  /* audio */
+
+  #audioBtn {
+    bottom: 10px;
+    font-size: 0.75rem;
+    width: 80%;
   }
 }

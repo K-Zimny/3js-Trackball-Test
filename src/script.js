@@ -502,50 +502,49 @@ jQuery(document).ready(function () {
   jQuery("#aboutLink").on("click", function () {
     showPage("#about");
     lookAtPage(500, -2);
-    document.getElementById("audio").play();
+    jQuery("#audioBtn").addClass("hidden");
   });
 
   jQuery("#aboutHomeBtn").on("click", function () {
     hidePage("#about");
     lookAtHome(500, 100, 100, 200);
-    document.getElementById("audio").play();
   });
 
   jQuery("#whyLink").on("click", function () {
     showPage("#why");
     lookAtPage(500, -3);
-    document.getElementById("audio").play();
+    jQuery("#audioBtn").addClass("hidden");
   });
 
   jQuery("#whyHomeBtn").on("click", function () {
     hidePage("#why");
     lookAtHome(500, -300, -600, 250);
-    document.getElementById("audio").play();
   });
 
   jQuery("#howLink").on("click", function () {
     showPage("#how");
     lookAtPage(500, -4);
-    document.getElementById("audio").play();
+    jQuery("#audioBtn").addClass("hidden");
   });
 
   jQuery("#howHomeBtn").on("click", function () {
     hidePage("#how");
     lookAtHome(500, 500, -500, 300);
-    document.getElementById("audio").play();
   });
 
   jQuery("#explore").on("click", function () {
     startExplore();
-    document.getElementById("audio").play();
+    jQuery("#audioBtn").addClass("hidden");
   });
 
   jQuery("#endExplore").on("click", function () {
     endExplore();
-    document.getElementById("audio").play();
   });
 
   // Audio
 
-  document.getElementById("audio").play();
+  jQuery("#audioBtn").on("click", function () {
+    document.getElementById("audio").play();
+    jQuery("#audioBtn").addClass("hidden");
+  });
 });
