@@ -2,7 +2,7 @@ import "./style.css";
 import jQuery from "jquery";
 import * as THREE from "three";
 
-import Stats from "three/examples/jsm/libs/stats.module.js";
+// import Stats from "three/examples/jsm/libs/stats.module.js";
 import { GUI } from "three/examples/jsm/libs/dat.gui.module.js";
 
 import { TrackballControls } from "three/examples/jsm/controls/TrackballControls.js";
@@ -37,7 +37,7 @@ animate();
 function init() {
   const aspect = window.innerWidth / window.innerHeight;
 
-  perspectiveCamera = new THREE.PerspectiveCamera(40, aspect, 1, 2000);
+  perspectiveCamera = new THREE.PerspectiveCamera(50, aspect, 1, 2000);
   perspectiveCamera.position.z = -1500;
 
   orthographicCamera = new THREE.OrthographicCamera(
@@ -158,8 +158,8 @@ function init() {
   renderer.domElement.id = "c";
   document.body.appendChild(renderer.domElement);
 
-  stats = new Stats();
-  document.body.appendChild(stats.dom);
+  // stats = new Stats();
+  // document.body.appendChild(stats.dom);
 
   //
 
@@ -240,7 +240,7 @@ function animate() {
 
   controls.update();
 
-  stats.update();
+  // stats.update();
 
   render();
 }
