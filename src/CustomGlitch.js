@@ -52,7 +52,7 @@ class GlitchPass extends Pass {
       this.uniforms["distortion_y"].value = MathUtils.randFloat(0, 1);
       this.curF = 0;
       this.generateTrigger();
-      this.curF += 2.75;
+      this.curF += 3.75 * Math.random();
     } else if (this.curF % this.randX < this.randX / 5) {
       this.uniforms["amount"].value = Math.random() / 100;
       this.uniforms["angle"].value = MathUtils.randFloat(-Math.PI, Math.PI);
@@ -60,10 +60,10 @@ class GlitchPass extends Pass {
       this.uniforms["seed_y"].value = MathUtils.randFloat(-0.3, 0.3);
       this.uniforms["distortion_x"].value = MathUtils.randFloat(0, 1);
       this.uniforms["distortion_y"].value = MathUtils.randFloat(0, 1);
-      this.curF += 1.75;
+      this.curF += 2.75 * Math.random();
     } else if (this.goWild == false) {
       this.uniforms["byp"].value = 1;
-      this.curF += 2 * Math.random();
+      this.curF += 1 * Math.random();
     }
 
     // this.curF++;

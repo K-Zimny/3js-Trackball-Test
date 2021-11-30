@@ -246,11 +246,21 @@ function animate() {
 }
 
 function render() {
+  const glitchThreshold = 350;
+  const glitchThresholdPos = glitchThreshold;
+  const glitchThresholdNeg = -glitchThreshold;
   const camera = params.orthographicCamera
     ? orthographicCamera
     : perspectiveCamera;
 
-  if (perspectiveCamera.position.z < 0) {
+  if (
+    perspectiveCamera.position.z < glitchThresholdNeg ||
+    perspectiveCamera.position.z > glitchThresholdPos ||
+    perspectiveCamera.position.x < glitchThresholdNeg ||
+    perspectiveCamera.position.x > glitchThresholdPos ||
+    perspectiveCamera.position.y < glitchThresholdNeg ||
+    perspectiveCamera.position.y > glitchThresholdPos
+  ) {
     composer.render(scene, camera);
   } else {
     renderer.render(scene, camera);
@@ -294,7 +304,7 @@ jQuery(document).ready(function () {
   // ---------------------------------------
 
   jQuery("#introText")
-    .delay(6000)
+    .delay(7000)
     .animate(
       {
         opacity: 1,
@@ -323,7 +333,7 @@ jQuery(document).ready(function () {
                         opacity: 0,
                         top: "+=10%",
                       },
-                      2000,
+                      3000,
                       function () {
                         jQuery("#introText").addClass("hidden");
                         jQuery("#introTitle").addClass("hidden");
