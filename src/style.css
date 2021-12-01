@@ -209,7 +209,7 @@ audio {
 
 #canvasHelperDesktop {
   opacity: 0;
-  display: block !important;
+  display: block;
   position: absolute;
   bottom: 150px;
   left: 50%;
@@ -251,11 +251,11 @@ audio {
   /* Canvas nav helper */
 
   #exploreli {
-    display: block !important;
+    display: block;
   }
 
   #canvasHelperDesktop {
-    display: none !important;
+    display: none;
   }
 
   #canvasHelperMobile {

@@ -56,6 +56,10 @@ function init() {
   scene.background = new THREE.Color("#009999");
   scene.fog = new THREE.FogExp2("#009999", 0.002);
 
+  // protected zone radius
+
+  const protectedArea = 65;
+
   //   Triangle Mesh
   const geometry = new THREE.ConeGeometry(5, 16, 32);
   const material = new THREE.MeshPhongMaterial({
@@ -73,7 +77,18 @@ function init() {
     mesh.rotation.z = (Math.random() - 0.5) * 1000;
     mesh.updateMatrix();
     mesh.matrixAutoUpdate = false;
-    scene.add(mesh);
+    if (mesh.position.z > protectedArea || mesh.position.z < -protectedArea) {
+      scene.add(mesh);
+    }
+
+    if (mesh.position.y > protectedArea || mesh.position.y < -protectedArea) {
+      scene.add(mesh);
+    }
+
+    if (mesh.position.x > protectedArea || mesh.position.x < -protectedArea) {
+      scene.add(mesh);
+    }
+    // scene.add(mesh);
   }
 
   //   Sphere Mesh
@@ -90,7 +105,27 @@ function init() {
     meshSphere.position.z = (Math.random() - 0.5) * 1000;
     meshSphere.updateMatrix();
     meshSphere.matrixAutoUpdate = false;
-    scene.add(meshSphere);
+    if (
+      meshSphere.position.z > protectedArea ||
+      meshSphere.position.z < -protectedArea
+    ) {
+      scene.add(meshSphere);
+    }
+
+    if (
+      meshSphere.position.y > protectedArea ||
+      meshSphere.position.y < -protectedArea
+    ) {
+      scene.add(meshSphere);
+    }
+
+    if (
+      meshSphere.position.x > protectedArea ||
+      meshSphere.position.x < -protectedArea
+    ) {
+      scene.add(meshSphere);
+    }
+    // scene.add(meshSphere);
   }
 
   //   Box Mesh
@@ -110,7 +145,27 @@ function init() {
     meshBox.rotation.z = (Math.random() - 0.5) * 1000;
     meshBox.updateMatrix();
     meshBox.matrixAutoUpdate = false;
-    scene.add(meshBox);
+    if (
+      meshBox.position.z > protectedArea ||
+      meshBox.position.z < -protectedArea
+    ) {
+      scene.add(meshBox);
+    }
+
+    if (
+      meshBox.position.y > protectedArea ||
+      meshBox.position.y < -protectedArea
+    ) {
+      scene.add(meshBox);
+    }
+
+    if (
+      meshBox.position.x > protectedArea ||
+      meshBox.position.x < -protectedArea
+    ) {
+      scene.add(meshBox);
+    }
+    // scene.add(meshBox);
   }
 
   // loader
@@ -123,13 +178,9 @@ function init() {
     "s2-2.glb",
     // called when the resource is loaded
     function (gltf) {
-      // gltf.scene.rotation.z = Math.PI * 1.75;
-      // gltf.scene.rotation.y = Math.PI * 1;
-      // gltf.scene.rotation.x = Math.PI * 0.5;
-      gltf.scene.rotation.z = Math.PI * 0.25;
-      gltf.scene.rotation.y = Math.PI * 1;
-      // gltf.scene.position.x = -50;
-      // gltf.scene.position.y = 50;
+      gltf.scene.rotation.z = Math.PI * 0.15;
+      gltf.scene.rotation.y = Math.PI * 1.05;
+      gltf.scene.position.y = -10;
       gltf.scene.scale.set(8, 8, 8);
       scene.add(gltf.scene);
     },
@@ -224,8 +275,6 @@ function onWindowResize() {
 
 function animate() {
   // Animate
-  const elapsedTime = clock.getElapsedTime();
-
   if (perspectiveCamera.position.z < 0) {
     perspectiveCamera.position.x -= Math.cos(1 * Math.PI * 2) / 16;
     perspectiveCamera.position.y += Math.cos(1 * Math.PI * 2) / 16;
@@ -234,6 +283,7 @@ function animate() {
     perspectiveCamera.position.x += Math.cos(1 * Math.PI * 2) / 64;
     perspectiveCamera.position.y += Math.cos(1 * Math.PI * 2) / 64;
     perspectiveCamera.position.z += Math.cos(1 * Math.PI * 2) / 124;
+    controls.minDistance = 125;
     controls.maxDistance = 500;
     controls.rotateSpeed = 1.0;
     controls.zoomSpeed = 1.2;
